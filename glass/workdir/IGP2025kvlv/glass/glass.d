@@ -1,0 +1,1 @@
+{"Configuration": "glass-app", "LogLevel": "debug", "ConfigDirectory": "workdir/IGP2025kvlv/glass", "InitializeFile": "initialized.d", "StationList": "stations.json", "GridFiles": ["Global_grid.d"], "InputConfig": "input.d", "OutputConfig": "output.d"}

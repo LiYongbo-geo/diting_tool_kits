@@ -1,0 +1,1 @@
+{"Configuration": "GlassInput", "InputDirectory": "workdir/IGP2025kvlv/glass/input", "ArchiveDirectory": "workdir/IGP2025kvlv/glass/archive", "ShutdownWhenNoData": true, "ShutdownWait": 120, "Format": "json", "QueueMaxSize": 1000, "DefaultAgencyID": "IGP", "DefaultAuthor": "DTFlow"}

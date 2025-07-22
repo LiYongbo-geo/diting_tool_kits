@@ -1,0 +1,1 @@
+{"Configuration": "GlassOutput", "PublicationTimes": [60], "PublishOnExpiration": false, "OutputDirectory": "workdir/IGP2025kvlv/glass/output", "OutputFormat": "json", "TimeStampFileName": true, "OutputAgencyID": "IGP", "OutputAuthor": "DTFlow"}

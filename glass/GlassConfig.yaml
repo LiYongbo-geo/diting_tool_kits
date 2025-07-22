@@ -1,0 +1,152 @@
+# glass.d
+# glass configuration file
+glass.d:
+  # this config is for the glass app
+  Configuration: 'glass-app'
+  # Set this logging level
+  # trace, debug, info, warning, error, criticalerror
+  LogLevel: 'debug'
+  # Use this directory for the other glass
+  # subcomponent configuration files
+  ConfigDirectory: "glass"
+  # Association thread configuration
+  # The file containing the configuration
+  # to initialize glass.
+  InitializeFile: 'initialized.d'
+  # The file containing the initial station list.
+  StationList: 'stations.json'
+  # List of files containing the configuration
+  # to define 1 or more regional/local grids
+  GridFiles: ['Global_grid.d']
+  # The file containing the configuration
+  # for the input thread.
+  InputConfig: 'input.d'
+  # The file containing the configuration
+  # for the output thread.
+  OutputConfig: 'output.d'
+# input.d
+# Configuration file for the glass input component
+input.d:
+  # this configuration is for glass broker input
+  Configuration: 'GlassInput'
+  # the directory to read input from
+  InputDirectory: 'input'
+  # the directory to archive input
+  ArchiveDirectory: 'archive'
+  # Whether to shut down when there is no more input data
+  ShutdownWhenNoData: true
+  # The time in seconds to wait before shutting down due to no data
+  ShutdownWait: 120
+  # the formats glass will accept
+  # glass currently understands the gpick, jsonpick,
+  # jsonhypo, and ccdata (dat) formats
+  Format: 'json'
+  # the maximum size of the input queue
+  QueueMaxSize: 1000
+  # The default source to use when converting data to json
+  DefaultAgencyID: 'IGP'
+  DefaultAuthor: 'DTFlow'
+# output.d
+# Configuration file for the glass output component
+output.d:
+  # this configuration is for glass broker output
+  Configuration: 'GlassOutput'
+  # the times in seconds to publish events
+  PublicationTimes: [60]
+  # Whether to publish an event on expiration from glass
+  PublishOnExpiration: false
+  # the directory to write output to
+  OutputDirectory: 'output'
+  # the format to write output in
+  # for now, the only format is json
+  OutputFormat: 'json'
+  # optional flag to define whether to timestamp
+  # output file names, defaults to true.
+  TimeStampFileName: true
+  # The  source to use when outputing data
+  OutputAgencyID: 'IGP'
+  OutputAuthor: 'DTFlow'
+# Global_grid.d
+# Configuration file for the Global glass grid
+Global_grid.d:
+  Cmd: 'Global'
+  Name: 'Global'
+  NodeResolution: 100.0
+  NumStationsPerNode: 30
+  NucleationDataCountThreshold: 5
+  NucleationStackThreshold: 4.5
+  DepthLayers: [10.0, 30.0, 50.0, 100.0, 200.0, 300.0, 400.0, 500.0, 600.0, 750.0]
+  SaveGrid: false
+  AzimuthGapTaper: 270.0
+  DepthResolution: 125.0
+  NucleationPhases:
+    Phase1:
+      PhaseName: 'P'
+      TravFile: './TT/P.trv'
+    Phase2:
+      PhaseName: 'S'
+      TravFile: './TT/S.trv'
+# example of a regional grid
+# Configuration file for the regional glass grid
+#Regional_grid.d:
+#  Cmd: 'Grid'
+#  Name: 'Regional'
+#  NodeResolution: 10.0
+#  NumberOfRows: 100
+#  NumberOfColumns: 50
+#  CenterLatitude: -21.5
+#  CenterLongitude: -70.0
+#  DepthLayers: [10.0, 30.0, 50.0, 100.0, 200.0, 300.0, 400.0, 500.0, 600.0, 750.0]
+#  NumStationsPerNode: 12
+#  NucleationDataCountThreshold: 5
+#  NucleationStackThreshold: 4.5
+#  SaveGrid: true
+#  AzimuthGapTaper: 270.0
+#  ZoneStatsFile: '/opt/DTFlow/scripts/DiTingLinkAPI/glass/qa_zonestats.txt'
+#  MaximumDepth: 900.0
+#  DepthResolution: 125.0
+#  NucleationPhases:
+#    Phase1:
+#      PhaseName: 'P'
+#      TravFile: '/opt/DTFlow/scripts/DiTingLinkAPI/glass/TT/P.trv'
+#    Phase2:
+#      PhaseName: 'S'
+#      TravFile: '/opt/DTFlow/scripts/DiTingLinkAPI/glass/TT/S.trv'
+# initialized.d
+# Configuration file for the glass parameters
+initialized.d:
+  Cmd: 'Initialize'
+  MaximumNumberOfPicks: 10000
+  MaximumNumberOfHypos: 300
+  MaximumNumberOfPicksPerSite: 30
+  PickDuplicateWindow: 5.0
+  NumberOfNucleationThreads: 5
+  NumberOfHypoThreads: 5
+  NumberOfWebThreads: 2
+  SiteMaximumPicksPerHour: 500
+  Params:
+    NucleationStackThreshold: 4.5
+    NucleationDataCountThreshold: 5
+    AssociationStandardDeviationCutoff: 10.0
+    PruningStandardDeviationCutoff: 3.0
+    avgDelta: 0.0
+    avgSigma: 0.75
+    DistanceCutoffFactor: 2.0
+    DistanceCutoffRatio: 0.8
+    DistanceCutoffMinimum: 2.0
+    HypoProcessCountLimit: 25
+    HypocenterTimeWindow: 10.0
+    HypocenterDistanceWindow: 0.1
+    ReportingDataThreshold: 5
+  DefaultNucleationPhase:
+    PhaseName: 'P'
+    TravFile: './TT/P.trv'
+  AssociationPhases:
+    -
+      PhaseName: 'P'
+      Assoc: [ 0., 180.]
+      TravFile: './TT/P.trv'
+    -
+      PhaseName: 'S'
+      Assoc: [ 0., 120.]
+      TravFile: './TT/S.trv'
